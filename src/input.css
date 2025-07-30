@@ -56,3 +56,22 @@
     font-size: var(--text-xl) /* 1.25rem = 20px */;
     line-height: var(--tw-leading, var(--text-xl--line-height) /* calc(1.75 / 1.25) ≈ 1.4 */);
 }
+
+.ml-10 {
+    margin-left: calc(var(--spacing) * 10) /* 2.5rem = 40px */;
+}
+
+.right-16 {
+    right: calc(var(--spacing) * 16) /* 4rem = 64px */;
+}
+
+.right-6 {
+    right: calc(var(--spacing) * 6) /* 1.5rem = 24px */;
+}
+
+.right-10 {
+    right: calc(var(--spacing) * 10) /* 2.5rem = 40px */;
+}
+.pr-40 {
+    padding-right: calc(var(--spacing) * 40) /* 10rem = 160px */;
+}
