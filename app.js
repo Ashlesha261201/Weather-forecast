@@ -164,3 +164,72 @@ function getWeatherByGeolocation() {
         }
     );
 }
+
+
+//recently searched 
+
+
+const userLocationInput = document.getElementById("userlocation");
+const recentSelect = document.getElementById("recent-searches");
+
+// Load recent cities from localStorage
+function loadRecentCities() {
+  const cities = JSON.parse(localStorage.getItem("recentCities")) || [];
+  updateDropdown(cities);
+}
+
+// Update dropdown options
+function updateDropdown(cities) {
+  // Clear existing (except default)
+  recentSelect.innerHTML = `<option disabled selected>Recently Searched</option>`;
+  cities.forEach(city => {
+    const option = document.createElement("option");
+    option.value = city;
+    option.textContent = city;
+    recentSelect.appendChild(option);
+  });
+}
+
+// Add a new city to localStorage (and dropdown)
+function addCityToRecent(city) {
+  if (!city) return;
+  let cities = JSON.parse(localStorage.getItem("recentCities")) || [];
+
+  // Remove if already exists
+  cities = cities.filter(c => c.toLowerCase() !== city.toLowerCase());
+
+  // Add to beginning
+  cities.unshift(city);
+
+  // Limit to last 5
+  cities = cities.slice(0, 5);
+
+  localStorage.setItem("recentCities", JSON.stringify(cities));
+  updateDropdown(cities);
+}
+
+// Event listener for dropdown selection
+recentSelect.addEventListener("change", () => {
+  const selectedCity = recentSelect.value;
+  userLocationInput.value = selectedCity;
+  fetchWeatherForCity(selectedCity); // Replace with your actual function
+});
+
+function fetchWeatherForCity(cityName) {
+  if (!cityName) return;
+
+  console.log("Fetching weather for:", cityName);
+
+  addCityToRecent(cityName);
+}
+
+// Call on page load
+loadRecentCities();
+
+
+document.querySelector("button[onclick='findUserLocation()']").addEventListener("click", () => {
+  const city = userLocationInput.value.trim();
+  if (city !== "") {
+    fetchWeatherForCity(city);
+  }
+});

@@ -75,3 +75,6 @@
 .pr-40 {
     padding-right: calc(var(--spacing) * 40) /* 10rem = 160px */;
 }
+.min-h-screen {
+    min-height: 100vh;
+}
